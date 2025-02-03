@@ -4,15 +4,13 @@ import hashlib
 # 读取消息和随机数
 with open('secret.txt', 'r') as f:
     lines = f.readlines()
-    message = lines[0].strip().encode()  # 假设消息是第一行
-    k = int(lines[1].strip())  # 假设随机数（k）是第二行
+    message = lines[0].strip().encode()  # 消息是第一行
+    k = int(lines[1].strip())  # 随机数（k）是第二行
 
 # 生成私钥（可以从文件中提供或者使用随机生成）
 sk = SigningKey.generate(curve=SECP256k1)
 
 # 使用提供的k进行签名
-# 这里我们需要指定随机数k（通常是通过哈希或者某种方式生成的）
-# ecdsa 库默认会使用私钥生成一个k值，但我们可以自己提供k进行签名
 sig = sk.sign(message, k=k)
 
 # 获取公钥
